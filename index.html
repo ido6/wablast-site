@@ -167,8 +167,8 @@
       <a href="#faq">שאלות נפוצות</a>
     </div>
     <div class="nav-cta">
-      <a class="btn btn-ghost" href="#pricing">התחברות</a>
-      <a class="btn btn-primary" href="#pricing">התחילו חינם</a>
+      <a class="btn btn-ghost app-login" href="#pricing">התחברות</a>
+      <a class="btn btn-primary app-start" href="#pricing">התחילו חינם</a>
     </div>
     <button class="menu-btn" id="menuBtn" aria-label="תפריט">☰</button>
   </nav></div>
@@ -360,6 +360,21 @@
 
 <script>
   document.getElementById('yr').textContent = new Date().getFullYear();
+
+  // ---- App access (Login / Start free) ----
+  // Set APP_URL to the deployed operator-console URL (Vercel) to enable real login/signup.
+  // Until then, the buttons fall back to the pricing section so they're never dead.
+  const APP_URL = ""; // e.g. "https://wa-campaign.vercel.app"
+  document.querySelectorAll('.app-login, .app-start').forEach((b) => {
+    b.addEventListener('click', (e) => {
+      if (APP_URL) {
+        e.preventDefault();
+        const base = APP_URL.replace(/\/$/, '');
+        window.location.href = b.classList.contains('app-login') ? base + '/login' : base + '/login';
+      }
+      // else: the href="#pricing" fallback scrolls to plans
+    });
+  });
 
   document.getElementById('menuBtn').addEventListener('click', () => {
     document.getElementById('pricing').scrollIntoView({behavior:'smooth'});
