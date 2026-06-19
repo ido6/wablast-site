@@ -8,152 +8,147 @@
 <meta property="og:title" content="WaBlast — Safe WhatsApp Campaigns" />
 <meta property="og:description" content="Bulk WhatsApp campaigns, paced to stay under the radar. Import, template, schedule, track." />
 <meta property="og:type" content="website" />
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2300d18f'/%3E%3Cpath d='M16 6a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 16 6z' fill='%230a0e12'/%3E%3C/svg%3E" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230f9d63'/%3E%3Cpath d='M16 6a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 16 6z' fill='%23fbf9f3'/%3E%3C/svg%3E" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..900;1,9..144,400..700&family=Hanken+Grotesk:wght@400..800&display=swap" rel="stylesheet" />
 <style>
   :root{
-    --bg:#0a0e12; --bg2:#0d1218; --surface:#121a24; --surface2:#16202c;
-    --line:#1f2c3a; --text:#e8edf3; --muted:#94a3b4; --faint:#5d6b7c;
-    --accent:#00d18f; --accent2:#27d4d4; --accent-ink:#062018;
-    --grad:linear-gradient(135deg,#00d18f 0%,#27d4d4 100%);
-    --radius:16px; --maxw:1140px;
-    --shadow:0 24px 60px -20px rgba(0,0,0,.6);
+    --paper:#f6f3ec; --paper2:#efece2; --card:#ffffff; --ink:#15241c; --ink2:#3b4a42;
+    --muted:#647167; --faint:#8b958c; --line:#e3ddcf; --line2:#d6cfbd;
+    --accent:#0f9d63; --accent-deep:#0b6e47; --accent-soft:#e4f3ea; --accent-ink:#ffffff;
+    --grad:linear-gradient(135deg,#16b073 0%,#0b6e47 100%);
+    --radius:18px; --maxw:1140px;
+    --shadow-sm:0 1px 2px rgba(21,36,28,.05),0 8px 24px -16px rgba(21,36,28,.25);
+    --shadow:0 30px 70px -34px rgba(11,110,71,.45);
     --ease:cubic-bezier(.16,1,.3,1);
   }
   *{box-sizing:border-box}
   html{scroll-behavior:smooth}
   body{
-    margin:0;background:var(--bg);color:var(--text);
-    font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
-    line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;
+    margin:0;background:var(--paper);color:var(--ink);
+    font-family:"Hanken Grotesk",system-ui,sans-serif;font-size:17px;line-height:1.62;
+    -webkit-font-smoothing:antialiased;overflow-x:hidden;
   }
-  body::before{ /* atmosphere */
-    content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+  /* paper texture + warm light */
+  body::before{content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;
     background:
-      radial-gradient(60% 50% at 80% -5%,rgba(39,212,212,.14),transparent 60%),
-      radial-gradient(50% 45% at 10% 0%,rgba(0,209,143,.16),transparent 60%);
-  }
+      radial-gradient(46% 38% at 84% -4%,rgba(22,176,115,.10),transparent 60%),
+      radial-gradient(40% 32% at 8% -2%,rgba(11,110,71,.08),transparent 60%);}
+  body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.5;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.035'/%3E%3C/svg%3E");}
   a{color:inherit;text-decoration:none}
-  h1,h2,h3{font-family:Sora,Inter,sans-serif;line-height:1.1;letter-spacing:-.02em;margin:0}
+  h1,h2,h3{font-family:"Fraunces",Georgia,serif;line-height:1.06;letter-spacing:-.015em;margin:0;font-weight:600}
   .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
-  .grad-text{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
-  .eyebrow{font-size:.8rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+  .serif-i{font-style:italic;font-weight:500}
+  .accent{color:var(--accent-deep)}
+  .eyebrow{font-size:.78rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent-deep)}
 
-  /* buttons */
-  .btn{display:inline-flex;align-items:center;gap:.5rem;font-weight:600;font-size:.95rem;
-    padding:.8rem 1.4rem;border-radius:12px;border:1px solid transparent;cursor:pointer;
-    transition:transform .25s var(--ease),box-shadow .25s var(--ease),background .25s,border-color .25s}
-  .btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-  .btn-primary{background:var(--grad);color:var(--accent-ink);box-shadow:0 10px 30px -10px rgba(0,209,143,.6)}
-  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 18px 40px -12px rgba(0,209,143,.7)}
-  .btn-ghost{background:transparent;color:var(--text);border-color:var(--line)}
-  .btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
+  .btn{display:inline-flex;align-items:center;gap:.5rem;font-weight:600;font-size:.96rem;
+    padding:.82rem 1.5rem;border-radius:100px;border:1.5px solid transparent;cursor:pointer;
+    transition:transform .25s var(--ease),box-shadow .25s var(--ease),background .25s,border-color .25s,color .25s}
+  .btn:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+  .btn-primary{background:var(--grad);color:var(--accent-ink);box-shadow:0 12px 26px -12px rgba(11,110,71,.6)}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 20px 38px -14px rgba(11,110,71,.65)}
+  .btn-ghost{background:transparent;color:var(--ink);border-color:var(--line2)}
+  .btn-ghost:hover{border-color:var(--accent);color:var(--accent-deep)}
 
-  /* nav */
-  header{position:sticky;top:0;z-index:50;backdrop-filter:blur(12px);
-    background:rgba(10,14,18,.72);border-bottom:1px solid var(--line)}
-  nav{display:flex;align-items:center;justify-content:space-between;height:68px}
-  .logo{display:flex;align-items:center;gap:.6rem;font-family:Sora;font-weight:800;font-size:1.15rem}
-  .logo .mark{width:30px;height:30px;border-radius:9px;background:var(--grad);display:grid;place-items:center;color:var(--accent-ink);font-size:1rem}
+  header{position:sticky;top:0;z-index:50;backdrop-filter:blur(10px);
+    background:rgba(246,243,236,.78);border-bottom:1px solid var(--line)}
+  nav{display:flex;align-items:center;justify-content:space-between;height:70px}
+  .logo{display:flex;align-items:center;gap:.6rem;font-family:"Fraunces";font-weight:700;font-size:1.25rem}
+  .logo .mark{width:32px;height:32px;border-radius:10px;background:var(--grad);display:grid;place-items:center;color:#fff;font-size:1rem}
   .nav-links{display:flex;gap:2rem;align-items:center}
-  .nav-links a{color:var(--muted);font-size:.92rem;font-weight:500}
-  .nav-links a:hover{color:var(--text)}
+  .nav-links a{color:var(--muted);font-size:.94rem;font-weight:500}
+  .nav-links a:hover{color:var(--ink)}
   .nav-cta{display:flex;gap:.7rem;align-items:center}
-  .menu-btn{display:none;background:none;border:0;color:var(--text);font-size:1.5rem;cursor:pointer}
+  .menu-btn{display:none;background:none;border:0;color:var(--ink);font-size:1.5rem;cursor:pointer}
 
-  /* hero */
-  .hero{padding:88px 0 64px;text-align:center}
-  .hero h1{font-size:clamp(2.4rem,1.2rem+5vw,4.6rem);font-weight:800}
-  .hero p.sub{max-width:640px;margin:1.4rem auto 0;color:var(--muted);font-size:clamp(1.05rem,1rem+.5vw,1.3rem)}
-  .hero .cta-row{margin-top:2.2rem;display:flex;gap:.9rem;justify-content:center;flex-wrap:wrap}
-  .pill{display:inline-flex;align-items:center;gap:.5rem;padding:.45rem .9rem;border:1px solid var(--line);
-    border-radius:100px;font-size:.82rem;color:var(--muted);background:var(--surface)}
-  .pill .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(0,209,143,.18)}
-  .trust{margin-top:1.6rem;color:var(--faint);font-size:.85rem}
+  .hero{padding:96px 0 70px;text-align:center;position:relative}
+  .hero h1{font-size:clamp(2.7rem,1.2rem+6vw,5.4rem);font-weight:600;letter-spacing:-.02em}
+  .hero p.sub{max-width:600px;margin:1.6rem auto 0;color:var(--ink2);font-size:clamp(1.08rem,1rem+.5vw,1.32rem)}
+  .hero .cta-row{margin-top:2.4rem;display:flex;gap:.9rem;justify-content:center;flex-wrap:wrap}
+  .pill{display:inline-flex;align-items:center;gap:.55rem;padding:.5rem 1rem;border:1px solid var(--line2);
+    border-radius:100px;font-size:.82rem;color:var(--muted);background:var(--card);box-shadow:var(--shadow-sm)}
+  .pill .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(15,157,99,.16)}
+  .trust{margin-top:1.7rem;color:var(--faint);font-size:.86rem}
 
-  /* stats */
   .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);
-    border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin-top:56px}
-  .stat{background:var(--bg2);padding:26px 20px;text-align:center}
-  .stat .n{font-family:Sora;font-weight:800;font-size:1.8rem}
-  .stat .l{color:var(--muted);font-size:.85rem;margin-top:.2rem}
+    border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin-top:60px;box-shadow:var(--shadow-sm)}
+  .stat{background:var(--card);padding:28px 20px;text-align:center}
+  .stat .n{font-family:"Fraunces";font-weight:600;font-size:1.9rem;color:var(--accent-deep)}
+  .stat .l{color:var(--muted);font-size:.85rem;margin-top:.25rem}
 
-  section{padding:84px 0}
-  .section-head{text-align:center;max-width:680px;margin:0 auto 52px}
-  .section-head h2{font-size:clamp(1.8rem,1.2rem+2.4vw,2.8rem);font-weight:800;margin-top:.6rem}
-  .section-head p{color:var(--muted);margin-top:.9rem;font-size:1.05rem}
+  section{padding:88px 0}
+  .section-head{text-align:center;max-width:680px;margin:0 auto 54px}
+  .section-head h2{font-size:clamp(2rem,1.2rem+2.6vw,3.1rem);font-weight:600;margin-top:.7rem}
+  .section-head p{color:var(--ink2);margin-top:1rem;font-size:1.08rem}
 
-  /* features bento */
   .bento{display:grid;grid-template-columns:repeat(6,1fr);gap:16px}
-  .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:26px;
-    transition:transform .3s var(--ease),border-color .3s}
-  .card:hover{transform:translateY(-4px);border-color:#2c3e52}
-  .card .ic{width:44px;height:44px;border-radius:11px;display:grid;place-items:center;font-size:1.3rem;
-    background:linear-gradient(135deg,rgba(0,209,143,.16),rgba(39,212,212,.12));border:1px solid var(--line);margin-bottom:14px}
-  .card h3{font-size:1.15rem;font-weight:700}
-  .card p{color:var(--muted);font-size:.95rem;margin:.5rem 0 0}
-  .span3{grid-column:span 3}.span2{grid-column:span 2}.span4{grid-column:span 4}.span6{grid-column:span 6}
-  .feat-lg{background:linear-gradient(160deg,var(--surface2),var(--surface));}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:28px;
+    box-shadow:var(--shadow-sm);transition:transform .3s var(--ease),box-shadow .3s var(--ease)}
+  .card:hover{transform:translateY(-4px);box-shadow:0 26px 50px -30px rgba(21,36,28,.4)}
+  .card .ic{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;font-size:1.35rem;
+    background:var(--accent-soft);border:1px solid #cfe7d8;margin-bottom:15px}
+  .card h3{font-size:1.28rem;font-weight:600}
+  .card p{color:var(--muted);font-size:.96rem;margin:.55rem 0 0}
+  .card code{background:var(--accent-soft);color:var(--accent-deep);padding:.05rem .35rem;border-radius:6px;font-size:.85em}
+  .span3{grid-column:span 3}.span2{grid-column:span 2}.span4{grid-column:span 4}
+  .feat-lg{background:linear-gradient(165deg,#ffffff,#f3f8f4)}
 
-  /* steps */
-  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;counter-reset:s}
-  .step{position:relative;padding:28px;background:var(--bg2);border:1px solid var(--line);border-radius:var(--radius)}
-  .step::before{counter-increment:s;content:counter(s);position:absolute;top:-16px;left:24px;
-    width:36px;height:36px;border-radius:10px;background:var(--grad);color:var(--accent-ink);
-    display:grid;place-items:center;font-family:Sora;font-weight:800}
-  .step h3{margin-top:10px;font-size:1.15rem}
-  .step p{color:var(--muted);font-size:.95rem;margin-top:.5rem}
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;counter-reset:s}
+  .step{position:relative;padding:30px;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow-sm)}
+  .step::before{counter-increment:s;content:counter(s);position:absolute;top:-18px;left:26px;
+    width:38px;height:38px;border-radius:11px;background:var(--grad);color:#fff;
+    display:grid;place-items:center;font-family:"Fraunces";font-weight:700}
+  .step h3{margin-top:12px;font-size:1.25rem}
+  .step p{color:var(--muted);font-size:.96rem;margin-top:.55rem}
 
-  /* pricing */
-  .toggle{display:flex;justify-content:center;align-items:center;gap:14px;margin-bottom:36px;color:var(--muted);font-size:.95rem}
-  .switch{position:relative;width:56px;height:30px;border-radius:100px;background:var(--surface2);border:1px solid var(--line);cursor:pointer}
+  .toggle{display:flex;justify-content:center;align-items:center;gap:14px;margin-bottom:38px;color:var(--muted);font-size:.95rem}
+  .switch{position:relative;width:56px;height:30px;border-radius:100px;background:var(--paper2);border:1px solid var(--line2);cursor:pointer}
   .switch .knob{position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:var(--grad);transition:transform .3s var(--ease)}
   .switch[aria-checked="true"] .knob{transform:translateX(26px)}
-  .save{color:var(--accent);font-weight:600}
+  .save{color:var(--accent-deep);font-weight:700}
   .prices{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;align-items:stretch}
-  .price{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);
-    border-radius:var(--radius);padding:30px}
-  .price.feat{border-color:var(--accent);box-shadow:var(--shadow);position:relative;background:linear-gradient(180deg,var(--surface2),var(--surface))}
-  .price .tag{position:absolute;top:-12px;right:24px;background:var(--grad);color:var(--accent-ink);
-    font-size:.72rem;font-weight:700;padding:.3rem .7rem;border-radius:100px;letter-spacing:.04em}
-  .price h3{font-size:1.2rem}
-  .price .desc{color:var(--muted);font-size:.9rem;margin-top:.3rem;min-height:42px}
-  .price .amt{font-family:Sora;font-weight:800;font-size:2.6rem;margin:14px 0 2px}
-  .price .amt span{font-size:1rem;color:var(--muted);font-weight:600}
+  .price{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);
+    border-radius:var(--radius);padding:32px;box-shadow:var(--shadow-sm)}
+  .price.feat{border:1.5px solid var(--accent);box-shadow:var(--shadow);position:relative;background:linear-gradient(180deg,#fbfdfb,#f3f9f5)}
+  .price .tag{position:absolute;top:-13px;right:26px;background:var(--grad);color:#fff;
+    font-size:.7rem;font-weight:700;padding:.32rem .75rem;border-radius:100px;letter-spacing:.05em}
+  .price h3{font-size:1.35rem;font-weight:600}
+  .price .desc{color:var(--muted);font-size:.92rem;margin-top:.35rem;min-height:42px}
+  .price .amt{font-family:"Fraunces";font-weight:600;font-size:2.9rem;margin:14px 0 2px;letter-spacing:-.02em}
+  .price .amt span{font-size:1rem;color:var(--muted);font-weight:500;font-family:"Hanken Grotesk"}
   .price .per{color:var(--faint);font-size:.82rem}
-  .price ul{list-style:none;padding:0;margin:20px 0;display:grid;gap:11px}
-  .price li{display:flex;gap:.6rem;align-items:flex-start;color:var(--muted);font-size:.92rem}
-  .price li .ck{color:var(--accent);flex:0 0 auto;margin-top:.15rem}
+  .price ul{list-style:none;padding:0;margin:22px 0;display:grid;gap:12px}
+  .price li{display:flex;gap:.6rem;align-items:flex-start;color:var(--ink2);font-size:.93rem}
+  .price li .ck{color:var(--accent);flex:0 0 auto;margin-top:.15rem;font-weight:700}
   .price .btn{width:100%;justify-content:center;margin-top:auto}
 
-  /* faq */
   .faq{max-width:780px;margin:0 auto;display:grid;gap:12px}
-  details{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:4px 20px}
-  details[open]{border-color:#2c3e52}
-  summary{list-style:none;cursor:pointer;padding:16px 0;font-weight:600;display:flex;justify-content:space-between;align-items:center}
+  details{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:4px 22px;box-shadow:var(--shadow-sm)}
+  details[open]{border-color:var(--line2)}
+  summary{list-style:none;cursor:pointer;padding:18px 0;font-weight:600;font-size:1.05rem;display:flex;justify-content:space-between;align-items:center;gap:1rem}
   summary::-webkit-details-marker{display:none}
-  summary::after{content:"+";color:var(--accent);font-size:1.4rem;transition:transform .25s}
+  summary::after{content:"+";color:var(--accent-deep);font-size:1.5rem;transition:transform .25s;flex:0 0 auto}
   details[open] summary::after{transform:rotate(45deg)}
-  details p{color:var(--muted);margin:0 0 16px;font-size:.95rem}
+  details p{color:var(--muted);margin:0 0 18px;font-size:.97rem}
 
-  /* final cta */
-  .final{text-align:center;background:linear-gradient(135deg,rgba(0,209,143,.1),rgba(39,212,212,.07));
-    border:1px solid var(--line);border-radius:24px;padding:64px 28px;margin:0 24px}
-  .final h2{font-size:clamp(1.8rem,1.2rem+2.4vw,2.8rem);font-weight:800}
-  .final p{color:var(--muted);max-width:520px;margin:1rem auto 1.8rem}
+  .final{text-align:center;background:linear-gradient(150deg,#ffffff,#eef6f0);
+    border:1px solid var(--line2);border-radius:26px;padding:72px 28px;margin:0 24px;box-shadow:var(--shadow-sm)}
+  .final h2{font-size:clamp(2rem,1.2rem+2.6vw,3.1rem);font-weight:600}
+  .final p{color:var(--ink2);max-width:520px;margin:1.1rem auto 1.9rem}
 
-  footer{border-top:1px solid var(--line);margin-top:84px;padding:40px 0;color:var(--faint);font-size:.88rem}
+  footer{border-top:1px solid var(--line);margin-top:88px;padding:42px 0;color:var(--faint);font-size:.88rem}
   .foot{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
-  .foot a{color:var(--muted)}.foot a:hover{color:var(--text)}
-  .warn{margin-top:18px;color:var(--faint);font-size:.78rem;max-width:760px}
+  .foot a{color:var(--muted)}.foot a:hover{color:var(--ink)}
+  .warn{margin-top:20px;color:var(--faint);font-size:.78rem;max-width:760px;line-height:1.5}
 
   @media(max-width:880px){
     .nav-links{display:none}.menu-btn{display:block}
     .stats{grid-template-columns:repeat(2,1fr)}
     .bento{grid-template-columns:repeat(2,1fr)}
-    .span3,.span2,.span4,.span6{grid-column:span 2}
+    .span3,.span2,.span4{grid-column:span 2}
     .steps,.prices{grid-template-columns:1fr}
     .price.feat{order:-1}
   }
@@ -184,7 +179,7 @@
   <section class="hero">
     <div class="wrap">
       <span class="pill"><span class="dot"></span> Paced sending · ban-risk reduction built in</span>
-      <h1>Bulk WhatsApp campaigns,<br><span class="grad-text">sent safely.</span></h1>
+      <h1>Bulk WhatsApp campaigns,<br><span class="serif-i accent">sent safely.</span></h1>
       <p class="sub">Import your list, write one message, and let WaBlast drip it out with human-like pacing, warm-up ramps, and working-hours limits — so your number stays alive.</p>
       <div class="cta-row">
         <a class="btn btn-primary" href="#pricing">Choose a plan →</a>
@@ -193,10 +188,10 @@
       <p class="trust">No credit card to start · Opt-in only · Honors opt-out automatically</p>
 
       <div class="stats">
-        <div class="stat"><div class="n grad-text">8–30s</div><div class="l">Randomized delay between sends</div></div>
-        <div class="stat"><div class="n grad-text">250/day</div><div class="l">Conservative default cap</div></div>
-        <div class="stat"><div class="n grad-text">.xlsx/.csv</div><div class="l">One-click contact import</div></div>
-        <div class="stat"><div class="n grad-text">Live</div><div class="l">Delivered / read tracking</div></div>
+        <div class="stat"><div class="n">8–30s</div><div class="l">Randomized delay between sends</div></div>
+        <div class="stat"><div class="n">250/day</div><div class="l">Conservative default cap</div></div>
+        <div class="stat"><div class="n">.xlsx/.csv</div><div class="l">One-click contact import</div></div>
+        <div class="stat"><div class="n">Live</div><div class="l">Delivered / read tracking</div></div>
       </div>
     </div>
   </section>
@@ -248,7 +243,7 @@
     </div>
   </section>
 
-  <section id="how" style="background:var(--bg2)">
+  <section id="how" style="background:linear-gradient(180deg,transparent,var(--paper2),transparent)">
     <div class="wrap">
       <div class="section-head">
         <span class="eyebrow">Three steps</span>
@@ -256,8 +251,8 @@
       </div>
       <div class="steps">
         <div class="step"><h3>Connect your number</h3><p>Scan a QR once. Your WhatsApp session stays connected on our always-on engine.</p></div>
-        <div class="step"><h3>Import & write</h3><p>Upload your list, map the columns, and craft one template with variables and spintax.</p></div>
-        <div class="step"><h3>Launch & watch</h3><p>Hit start. WaBlast paces every message and shows you live progress, delivery, and reads.</p></div>
+        <div class="step"><h3>Import &amp; write</h3><p>Upload your list, map the columns, and craft one template with variables and spintax.</p></div>
+        <div class="step"><h3>Launch &amp; watch</h3><p>Hit start. WaBlast paces every message and shows you live progress, delivery, and reads.</p></div>
       </div>
     </div>
   </section>
@@ -271,7 +266,7 @@
       </div>
 
       <div class="toggle">
-        <span id="lblM" style="color:var(--text)">Monthly</span>
+        <span id="lblM" style="color:var(--ink)">Monthly</span>
         <div class="switch" id="billSwitch" role="switch" aria-checked="false" tabindex="0" aria-label="Toggle annual billing"><span class="knob"></span></div>
         <span id="lblY">Annual <span class="save">save 20%</span></span>
       </div>
@@ -301,7 +296,7 @@
             <li><span class="ck">✓</span> Everything in Starter</li>
             <li><span class="ck">✓</span> Higher daily cap + warm-up</li>
             <li><span class="ck">✓</span> Scheduling + media campaigns</li>
-            <li><span class="ck">✓</span> Live delivery & read tracking</li>
+            <li><span class="ck">✓</span> Live delivery &amp; read tracking</li>
             <li><span class="ck">✓</span> CSV results export</li>
           </ul>
           <a class="btn btn-primary buy" data-plan="pro" href="#">Get Pro</a>
@@ -364,21 +359,18 @@
 </footer>
 
 <script>
-  // year
   document.getElementById('yr').textContent = new Date().getFullYear();
 
-  // mobile menu (jump to pricing — simple, no overlay needed)
   document.getElementById('menuBtn').addEventListener('click', () => {
     document.getElementById('pricing').scrollIntoView({behavior:'smooth'});
   });
 
-  // billing toggle
   const sw = document.getElementById('billSwitch');
   const lblM = document.getElementById('lblM'), lblY = document.getElementById('lblY');
   function setBilling(annual){
     sw.setAttribute('aria-checked', String(annual));
-    lblM.style.color = annual ? 'var(--muted)' : 'var(--text)';
-    lblY.style.color = annual ? 'var(--text)' : 'var(--muted)';
+    lblM.style.color = annual ? 'var(--muted)' : 'var(--ink)';
+    lblY.style.color = annual ? 'var(--ink)' : 'var(--muted)';
     document.querySelectorAll('.amt').forEach(el=>{
       const v = annual ? el.dataset.y : el.dataset.m;
       el.innerHTML = '$' + v + '<span>/mo</span>';
@@ -405,7 +397,6 @@
       const annual = sw.getAttribute('aria-checked')==='true';
       const url = CHECKOUT[plan] && CHECKOUT[plan][annual?'annual':'monthly'];
       if(url){ window.location.href = url; return; }
-      // fallback: capture intent by email until payment links are configured
       const cycle = annual ? 'annual' : 'monthly';
       window.location.href = `mailto:ido6662@gmail.com?subject=${encodeURIComponent('Subscribe: '+plan+' ('+cycle+')')}&body=${encodeURIComponent('I want to subscribe to the '+plan+' plan ('+cycle+'). My WhatsApp number: ')}`;
     });
