@@ -1,0 +1,415 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>WaBlast — Safe WhatsApp Campaigns</title>
+<meta name="description" content="Send bulk WhatsApp campaigns without getting banned. Smart pacing, Excel import, templates, scheduling, delivery tracking, and opt-out — built in." />
+<meta property="og:title" content="WaBlast — Safe WhatsApp Campaigns" />
+<meta property="og:description" content="Bulk WhatsApp campaigns, paced to stay under the radar. Import, template, schedule, track." />
+<meta property="og:type" content="website" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2300d18f'/%3E%3Cpath d='M16 6a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 16 6z' fill='%230a0e12'/%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#0a0e12; --bg2:#0d1218; --surface:#121a24; --surface2:#16202c;
+    --line:#1f2c3a; --text:#e8edf3; --muted:#94a3b4; --faint:#5d6b7c;
+    --accent:#00d18f; --accent2:#27d4d4; --accent-ink:#062018;
+    --grad:linear-gradient(135deg,#00d18f 0%,#27d4d4 100%);
+    --radius:16px; --maxw:1140px;
+    --shadow:0 24px 60px -20px rgba(0,0,0,.6);
+    --ease:cubic-bezier(.16,1,.3,1);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;background:var(--bg);color:var(--text);
+    font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+    line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;
+  }
+  body::before{ /* atmosphere */
+    content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+    background:
+      radial-gradient(60% 50% at 80% -5%,rgba(39,212,212,.14),transparent 60%),
+      radial-gradient(50% 45% at 10% 0%,rgba(0,209,143,.16),transparent 60%);
+  }
+  a{color:inherit;text-decoration:none}
+  h1,h2,h3{font-family:Sora,Inter,sans-serif;line-height:1.1;letter-spacing:-.02em;margin:0}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  .grad-text{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .eyebrow{font-size:.8rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+
+  /* buttons */
+  .btn{display:inline-flex;align-items:center;gap:.5rem;font-weight:600;font-size:.95rem;
+    padding:.8rem 1.4rem;border-radius:12px;border:1px solid transparent;cursor:pointer;
+    transition:transform .25s var(--ease),box-shadow .25s var(--ease),background .25s,border-color .25s}
+  .btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  .btn-primary{background:var(--grad);color:var(--accent-ink);box-shadow:0 10px 30px -10px rgba(0,209,143,.6)}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 18px 40px -12px rgba(0,209,143,.7)}
+  .btn-ghost{background:transparent;color:var(--text);border-color:var(--line)}
+  .btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
+
+  /* nav */
+  header{position:sticky;top:0;z-index:50;backdrop-filter:blur(12px);
+    background:rgba(10,14,18,.72);border-bottom:1px solid var(--line)}
+  nav{display:flex;align-items:center;justify-content:space-between;height:68px}
+  .logo{display:flex;align-items:center;gap:.6rem;font-family:Sora;font-weight:800;font-size:1.15rem}
+  .logo .mark{width:30px;height:30px;border-radius:9px;background:var(--grad);display:grid;place-items:center;color:var(--accent-ink);font-size:1rem}
+  .nav-links{display:flex;gap:2rem;align-items:center}
+  .nav-links a{color:var(--muted);font-size:.92rem;font-weight:500}
+  .nav-links a:hover{color:var(--text)}
+  .nav-cta{display:flex;gap:.7rem;align-items:center}
+  .menu-btn{display:none;background:none;border:0;color:var(--text);font-size:1.5rem;cursor:pointer}
+
+  /* hero */
+  .hero{padding:88px 0 64px;text-align:center}
+  .hero h1{font-size:clamp(2.4rem,1.2rem+5vw,4.6rem);font-weight:800}
+  .hero p.sub{max-width:640px;margin:1.4rem auto 0;color:var(--muted);font-size:clamp(1.05rem,1rem+.5vw,1.3rem)}
+  .hero .cta-row{margin-top:2.2rem;display:flex;gap:.9rem;justify-content:center;flex-wrap:wrap}
+  .pill{display:inline-flex;align-items:center;gap:.5rem;padding:.45rem .9rem;border:1px solid var(--line);
+    border-radius:100px;font-size:.82rem;color:var(--muted);background:var(--surface)}
+  .pill .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(0,209,143,.18)}
+  .trust{margin-top:1.6rem;color:var(--faint);font-size:.85rem}
+
+  /* stats */
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);
+    border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin-top:56px}
+  .stat{background:var(--bg2);padding:26px 20px;text-align:center}
+  .stat .n{font-family:Sora;font-weight:800;font-size:1.8rem}
+  .stat .l{color:var(--muted);font-size:.85rem;margin-top:.2rem}
+
+  section{padding:84px 0}
+  .section-head{text-align:center;max-width:680px;margin:0 auto 52px}
+  .section-head h2{font-size:clamp(1.8rem,1.2rem+2.4vw,2.8rem);font-weight:800;margin-top:.6rem}
+  .section-head p{color:var(--muted);margin-top:.9rem;font-size:1.05rem}
+
+  /* features bento */
+  .bento{display:grid;grid-template-columns:repeat(6,1fr);gap:16px}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:26px;
+    transition:transform .3s var(--ease),border-color .3s}
+  .card:hover{transform:translateY(-4px);border-color:#2c3e52}
+  .card .ic{width:44px;height:44px;border-radius:11px;display:grid;place-items:center;font-size:1.3rem;
+    background:linear-gradient(135deg,rgba(0,209,143,.16),rgba(39,212,212,.12));border:1px solid var(--line);margin-bottom:14px}
+  .card h3{font-size:1.15rem;font-weight:700}
+  .card p{color:var(--muted);font-size:.95rem;margin:.5rem 0 0}
+  .span3{grid-column:span 3}.span2{grid-column:span 2}.span4{grid-column:span 4}.span6{grid-column:span 6}
+  .feat-lg{background:linear-gradient(160deg,var(--surface2),var(--surface));}
+
+  /* steps */
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;counter-reset:s}
+  .step{position:relative;padding:28px;background:var(--bg2);border:1px solid var(--line);border-radius:var(--radius)}
+  .step::before{counter-increment:s;content:counter(s);position:absolute;top:-16px;left:24px;
+    width:36px;height:36px;border-radius:10px;background:var(--grad);color:var(--accent-ink);
+    display:grid;place-items:center;font-family:Sora;font-weight:800}
+  .step h3{margin-top:10px;font-size:1.15rem}
+  .step p{color:var(--muted);font-size:.95rem;margin-top:.5rem}
+
+  /* pricing */
+  .toggle{display:flex;justify-content:center;align-items:center;gap:14px;margin-bottom:36px;color:var(--muted);font-size:.95rem}
+  .switch{position:relative;width:56px;height:30px;border-radius:100px;background:var(--surface2);border:1px solid var(--line);cursor:pointer}
+  .switch .knob{position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:var(--grad);transition:transform .3s var(--ease)}
+  .switch[aria-checked="true"] .knob{transform:translateX(26px)}
+  .save{color:var(--accent);font-weight:600}
+  .prices{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;align-items:stretch}
+  .price{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);
+    border-radius:var(--radius);padding:30px}
+  .price.feat{border-color:var(--accent);box-shadow:var(--shadow);position:relative;background:linear-gradient(180deg,var(--surface2),var(--surface))}
+  .price .tag{position:absolute;top:-12px;right:24px;background:var(--grad);color:var(--accent-ink);
+    font-size:.72rem;font-weight:700;padding:.3rem .7rem;border-radius:100px;letter-spacing:.04em}
+  .price h3{font-size:1.2rem}
+  .price .desc{color:var(--muted);font-size:.9rem;margin-top:.3rem;min-height:42px}
+  .price .amt{font-family:Sora;font-weight:800;font-size:2.6rem;margin:14px 0 2px}
+  .price .amt span{font-size:1rem;color:var(--muted);font-weight:600}
+  .price .per{color:var(--faint);font-size:.82rem}
+  .price ul{list-style:none;padding:0;margin:20px 0;display:grid;gap:11px}
+  .price li{display:flex;gap:.6rem;align-items:flex-start;color:var(--muted);font-size:.92rem}
+  .price li .ck{color:var(--accent);flex:0 0 auto;margin-top:.15rem}
+  .price .btn{width:100%;justify-content:center;margin-top:auto}
+
+  /* faq */
+  .faq{max-width:780px;margin:0 auto;display:grid;gap:12px}
+  details{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:4px 20px}
+  details[open]{border-color:#2c3e52}
+  summary{list-style:none;cursor:pointer;padding:16px 0;font-weight:600;display:flex;justify-content:space-between;align-items:center}
+  summary::-webkit-details-marker{display:none}
+  summary::after{content:"+";color:var(--accent);font-size:1.4rem;transition:transform .25s}
+  details[open] summary::after{transform:rotate(45deg)}
+  details p{color:var(--muted);margin:0 0 16px;font-size:.95rem}
+
+  /* final cta */
+  .final{text-align:center;background:linear-gradient(135deg,rgba(0,209,143,.1),rgba(39,212,212,.07));
+    border:1px solid var(--line);border-radius:24px;padding:64px 28px;margin:0 24px}
+  .final h2{font-size:clamp(1.8rem,1.2rem+2.4vw,2.8rem);font-weight:800}
+  .final p{color:var(--muted);max-width:520px;margin:1rem auto 1.8rem}
+
+  footer{border-top:1px solid var(--line);margin-top:84px;padding:40px 0;color:var(--faint);font-size:.88rem}
+  .foot{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+  .foot a{color:var(--muted)}.foot a:hover{color:var(--text)}
+  .warn{margin-top:18px;color:var(--faint);font-size:.78rem;max-width:760px}
+
+  @media(max-width:880px){
+    .nav-links{display:none}.menu-btn{display:block}
+    .stats{grid-template-columns:repeat(2,1fr)}
+    .bento{grid-template-columns:repeat(2,1fr)}
+    .span3,.span2,.span4,.span6{grid-column:span 2}
+    .steps,.prices{grid-template-columns:1fr}
+    .price.feat{order:-1}
+  }
+  @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap"><nav>
+    <a class="logo" href="#top"><span class="mark">✦</span> WaBlast</a>
+    <div class="nav-links">
+      <a href="#features">Features</a>
+      <a href="#how">How it works</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+    </div>
+    <div class="nav-cta">
+      <a class="btn btn-ghost" href="#pricing">Sign in</a>
+      <a class="btn btn-primary" href="#pricing">Start free</a>
+    </div>
+    <button class="menu-btn" id="menuBtn" aria-label="Menu">☰</button>
+  </nav></div>
+</header>
+
+<main id="top">
+
+  <section class="hero">
+    <div class="wrap">
+      <span class="pill"><span class="dot"></span> Paced sending · ban-risk reduction built in</span>
+      <h1>Bulk WhatsApp campaigns,<br><span class="grad-text">sent safely.</span></h1>
+      <p class="sub">Import your list, write one message, and let WaBlast drip it out with human-like pacing, warm-up ramps, and working-hours limits — so your number stays alive.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="#pricing">Choose a plan →</a>
+        <a class="btn btn-ghost" href="#how">See how it works</a>
+      </div>
+      <p class="trust">No credit card to start · Opt-in only · Honors opt-out automatically</p>
+
+      <div class="stats">
+        <div class="stat"><div class="n grad-text">8–30s</div><div class="l">Randomized delay between sends</div></div>
+        <div class="stat"><div class="n grad-text">250/day</div><div class="l">Conservative default cap</div></div>
+        <div class="stat"><div class="n grad-text">.xlsx/.csv</div><div class="l">One-click contact import</div></div>
+        <div class="stat"><div class="n grad-text">Live</div><div class="l">Delivered / read tracking</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="features">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Everything in one console</span>
+        <h2>Built to send a lot — carefully</h2>
+        <p>A complete campaign layer: import, template, pace, schedule, and track. The boring safety work is done for you.</p>
+      </div>
+      <div class="bento">
+        <div class="card span4 feat-lg">
+          <div class="ic">🛡️</div>
+          <h3>Anti-ban pacing engine</h3>
+          <p>Randomized inter-message delays, batch breaks, per-number daily caps, warm-up ramps for new numbers, working-hours windows, and an auto-pause circuit breaker on error spikes or disconnects.</p>
+        </div>
+        <div class="card span2">
+          <div class="ic">📥</div>
+          <h3>Excel / CSV import</h3>
+          <p>Map columns, normalize phone numbers, de-dupe, and validate in one step.</p>
+        </div>
+        <div class="card span2">
+          <div class="ic">✍️</div>
+          <h3>Templates + spintax</h3>
+          <p>Personalize with <code>{name}</code> and vary wording with <code>{Hi|Hey|Shalom}</code> on every send.</p>
+        </div>
+        <div class="card span2">
+          <div class="ic">⏰</div>
+          <h3>Scheduling</h3>
+          <p>Start now or queue a campaign for a future time. Caps and hours still apply.</p>
+        </div>
+        <div class="card span2">
+          <div class="ic">📊</div>
+          <h3>Live delivery tracking</h3>
+          <p>Watch sent → delivered → read update in real time, per recipient.</p>
+        </div>
+        <div class="card span3">
+          <div class="ic">🚫</div>
+          <h3>Automatic opt-out</h3>
+          <p>Reply <strong>STOP</strong> (or הסר) and the contact is removed and skipped everywhere — forever.</p>
+        </div>
+        <div class="card span3">
+          <div class="ic">🖼️</div>
+          <h3>Media campaigns</h3>
+          <p>Send an image or document with a templated caption alongside your text.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="how" style="background:var(--bg2)">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Three steps</span>
+        <h2>From spreadsheet to sent</h2>
+      </div>
+      <div class="steps">
+        <div class="step"><h3>Connect your number</h3><p>Scan a QR once. Your WhatsApp session stays connected on our always-on engine.</p></div>
+        <div class="step"><h3>Import & write</h3><p>Upload your list, map the columns, and craft one template with variables and spintax.</p></div>
+        <div class="step"><h3>Launch & watch</h3><p>Hit start. WaBlast paces every message and shows you live progress, delivery, and reads.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="pricing">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Pricing</span>
+        <h2>Simple plans. Cancel anytime.</h2>
+        <p>Every plan includes the full anti-ban engine. Pay monthly or save with annual.</p>
+      </div>
+
+      <div class="toggle">
+        <span id="lblM" style="color:var(--text)">Monthly</span>
+        <div class="switch" id="billSwitch" role="switch" aria-checked="false" tabindex="0" aria-label="Toggle annual billing"><span class="knob"></span></div>
+        <span id="lblY">Annual <span class="save">save 20%</span></span>
+      </div>
+
+      <div class="prices">
+        <div class="price">
+          <h3>Starter</h3>
+          <p class="desc">For a single number and small lists.</p>
+          <div class="amt" data-m="19" data-y="15">$19<span>/mo</span></div>
+          <div class="per" data-mper="billed monthly" data-yper="billed annually">billed monthly</div>
+          <ul>
+            <li><span class="ck">✓</span> 1 WhatsApp number</li>
+            <li><span class="ck">✓</span> Up to 250 sends/day</li>
+            <li><span class="ck">✓</span> Import, templates, spintax</li>
+            <li><span class="ck">✓</span> Opt-out handling</li>
+          </ul>
+          <a class="btn btn-ghost buy" data-plan="starter" href="#">Get Starter</a>
+        </div>
+
+        <div class="price feat">
+          <span class="tag">MOST POPULAR</span>
+          <h3>Pro</h3>
+          <p class="desc">For regular campaigns and bigger lists.</p>
+          <div class="amt" data-m="49" data-y="39">$49<span>/mo</span></div>
+          <div class="per" data-mper="billed monthly" data-yper="billed annually">billed monthly</div>
+          <ul>
+            <li><span class="ck">✓</span> Everything in Starter</li>
+            <li><span class="ck">✓</span> Higher daily cap + warm-up</li>
+            <li><span class="ck">✓</span> Scheduling + media campaigns</li>
+            <li><span class="ck">✓</span> Live delivery & read tracking</li>
+            <li><span class="ck">✓</span> CSV results export</li>
+          </ul>
+          <a class="btn btn-primary buy" data-plan="pro" href="#">Get Pro</a>
+        </div>
+
+        <div class="price">
+          <h3>Business</h3>
+          <p class="desc">For high volume and priority support.</p>
+          <div class="amt" data-m="99" data-y="79">$99<span>/mo</span></div>
+          <div class="per" data-mper="billed monthly" data-yper="billed annually">billed monthly</div>
+          <ul>
+            <li><span class="ck">✓</span> Everything in Pro</li>
+            <li><span class="ck">✓</span> Maximum daily cap</li>
+            <li><span class="ck">✓</span> Priority support</li>
+            <li><span class="ck">✓</span> Onboarding help</li>
+          </ul>
+          <a class="btn btn-ghost buy" data-plan="business" href="#">Get Business</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="wrap">
+      <div class="section-head"><span class="eyebrow">FAQ</span><h2>Good questions</h2></div>
+      <div class="faq">
+        <details><summary>Can my number still get banned?</summary><p>Yes — driving WhatsApp Web is against WhatsApp's Terms, and any number can be banned. WaBlast <em>reduces</em> risk with conservative pacing, warm-up, and caps, but it is not a guarantee. Use a number you can afford to lose, warm it up, and message only people who opted in.</p></details>
+        <details><summary>How does the pacing work?</summary><p>Messages go out one at a time with a randomized 8–30s gap, a longer pause every batch, a per-day cap (with a warm-up ramp for new numbers), and only inside your working hours. Sending auto-pauses if the session drops or errors spike.</p></details>
+        <details><summary>Do you handle opt-outs?</summary><p>Automatically. When someone replies a stop keyword (STOP, UNSUBSCRIBE, הסר…), that contact is flagged and skipped in every future campaign.</p></details>
+        <details><summary>What do I need to start?</summary><p>A WhatsApp number and your contact list as Excel or CSV. You scan a QR once to connect, then import and send.</p></details>
+        <details><summary>Can I cancel anytime?</summary><p>Yes. Plans are month-to-month (or annual if you choose). Cancel whenever — no lock-in.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="final">
+      <h2>Start your first campaign today</h2>
+      <p>Connect a number, import a list, and send safely in minutes.</p>
+      <a class="btn btn-primary" href="#pricing">Choose a plan →</a>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <a class="logo" href="#top"><span class="mark">✦</span> WaBlast</a>
+      <div style="display:flex;gap:22px">
+        <a href="#features">Features</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#faq">FAQ</a>
+        <a href="mailto:ido6662@gmail.com">Contact</a>
+      </div>
+      <span>© <span id="yr"></span> WaBlast</span>
+    </div>
+    <p class="warn">WaBlast sends via WhatsApp Web automation, which is against WhatsApp's Terms of Service; accounts may be banned. Message only recipients who have opted in, and honor every opt-out. Not affiliated with WhatsApp or Meta.</p>
+  </div>
+</footer>
+
+<script>
+  // year
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  // mobile menu (jump to pricing — simple, no overlay needed)
+  document.getElementById('menuBtn').addEventListener('click', () => {
+    document.getElementById('pricing').scrollIntoView({behavior:'smooth'});
+  });
+
+  // billing toggle
+  const sw = document.getElementById('billSwitch');
+  const lblM = document.getElementById('lblM'), lblY = document.getElementById('lblY');
+  function setBilling(annual){
+    sw.setAttribute('aria-checked', String(annual));
+    lblM.style.color = annual ? 'var(--muted)' : 'var(--text)';
+    lblY.style.color = annual ? 'var(--text)' : 'var(--muted)';
+    document.querySelectorAll('.amt').forEach(el=>{
+      const v = annual ? el.dataset.y : el.dataset.m;
+      el.innerHTML = '$' + v + '<span>/mo</span>';
+    });
+    document.querySelectorAll('.per').forEach(el=>{
+      el.textContent = annual ? el.dataset.yper : el.dataset.mper;
+    });
+  }
+  sw.addEventListener('click', ()=> setBilling(sw.getAttribute('aria-checked')!=='true'));
+  sw.addEventListener('keydown', e=>{ if(e.key===' '||e.key==='Enter'){e.preventDefault(); sw.click();} });
+
+  // ---- Checkout ----
+  // Paste your Stripe Payment Link (or Gumroad/Lemon Squeezy URL) per plan to go live.
+  // Until set, the button captures the lead via email so you never miss a buyer.
+  const CHECKOUT = {
+    starter:  { monthly:"", annual:"" },
+    pro:      { monthly:"", annual:"" },
+    business: { monthly:"", annual:"" }
+  };
+  document.querySelectorAll('.buy').forEach(btn=>{
+    btn.addEventListener('click', e=>{
+      e.preventDefault();
+      const plan = btn.dataset.plan;
+      const annual = sw.getAttribute('aria-checked')==='true';
+      const url = CHECKOUT[plan] && CHECKOUT[plan][annual?'annual':'monthly'];
+      if(url){ window.location.href = url; return; }
+      // fallback: capture intent by email until payment links are configured
+      const cycle = annual ? 'annual' : 'monthly';
+      window.location.href = `mailto:ido6662@gmail.com?subject=${encodeURIComponent('Subscribe: '+plan+' ('+cycle+')')}&body=${encodeURIComponent('I want to subscribe to the '+plan+' plan ('+cycle+'). My WhatsApp number: ')}`;
+    });
+  });
+</script>
+</body>
+</html>
