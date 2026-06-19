@@ -1,17 +1,17 @@
 <!doctype html>
-<html lang="en">
+<html lang="he" dir="rtl">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>WaBlast — Safe WhatsApp Campaigns</title>
-<meta name="description" content="Send bulk WhatsApp campaigns without getting banned. Smart pacing, Excel import, templates, scheduling, delivery tracking, and opt-out — built in." />
-<meta property="og:title" content="WaBlast — Safe WhatsApp Campaigns" />
-<meta property="og:description" content="Bulk WhatsApp campaigns, paced to stay under the radar. Import, template, schedule, track." />
+<title>WaBlast — קמפיינים בוואטסאפ, בלי חסימות</title>
+<meta name="description" content="שליחת קמפיינים מרובים בוואטסאפ בלי להיחסם. קצב חכם, ייבוא מאקסל, תבניות, תזמון, מעקב מסירה והסרה — הכול מובנה." />
+<meta property="og:title" content="WaBlast — קמפיינים בוואטסאפ, בלי חסימות" />
+<meta property="og:description" content="קמפיינים בוואטסאפ, בקצב ששומר על המספר שלך. ייבוא, תבניות, תזמון, מעקב." />
 <meta property="og:type" content="website" />
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230f9d63'/%3E%3Cpath d='M16 6a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 16 6z' fill='%23fbf9f3'/%3E%3C/svg%3E" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..900;1,9..144,400..700&family=Hanken+Grotesk:wght@400..800&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 <style>
   :root{
     --paper:#f6f3ec; --paper2:#efece2; --card:#ffffff; --ink:#15241c; --ink2:#3b4a42;
@@ -27,25 +27,26 @@
   html{scroll-behavior:smooth}
   body{
     margin:0;background:var(--paper);color:var(--ink);
-    font-family:"Hanken Grotesk",system-ui,sans-serif;font-size:17px;line-height:1.62;
+    font-family:"Heebo",system-ui,sans-serif;font-size:17px;line-height:1.65;
     -webkit-font-smoothing:antialiased;overflow-x:hidden;
   }
-  /* paper texture + warm light */
   body::before{content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;
     background:
-      radial-gradient(46% 38% at 84% -4%,rgba(22,176,115,.10),transparent 60%),
-      radial-gradient(40% 32% at 8% -2%,rgba(11,110,71,.08),transparent 60%);}
+      radial-gradient(46% 38% at 16% -4%,rgba(22,176,115,.10),transparent 60%),
+      radial-gradient(40% 32% at 92% -2%,rgba(11,110,71,.08),transparent 60%);}
   body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.5;mix-blend-mode:multiply;
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.035'/%3E%3C/svg%3E");}
   a{color:inherit;text-decoration:none}
-  h1,h2,h3{font-family:"Fraunces",Georgia,serif;line-height:1.06;letter-spacing:-.015em;margin:0;font-weight:600}
+  h1,h2,h3{font-family:"Frank Ruhl Libre",Georgia,serif;line-height:1.12;letter-spacing:0;margin:0;font-weight:700}
   .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
-  .serif-i{font-style:italic;font-weight:500}
+  .serif-i{font-weight:900}
   .accent{color:var(--accent-deep)}
-  .eyebrow{font-size:.78rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent-deep)}
+  .ltr{direction:ltr;unicode-bidi:isolate}
+  .eyebrow{font-size:.8rem;font-weight:700;letter-spacing:.1em;color:var(--accent-deep)}
+  code{background:var(--accent-soft);color:var(--accent-deep);padding:.05rem .35rem;border-radius:6px;font-size:.85em;direction:ltr;unicode-bidi:isolate;font-family:"Heebo",monospace}
 
-  .btn{display:inline-flex;align-items:center;gap:.5rem;font-weight:600;font-size:.96rem;
-    padding:.82rem 1.5rem;border-radius:100px;border:1.5px solid transparent;cursor:pointer;
+  .btn{display:inline-flex;align-items:center;gap:.5rem;font-weight:700;font-size:.97rem;
+    padding:.82rem 1.6rem;border-radius:100px;border:1.5px solid transparent;cursor:pointer;
     transition:transform .25s var(--ease),box-shadow .25s var(--ease),background .25s,border-color .25s,color .25s}
   .btn:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
   .btn-primary{background:var(--grad);color:var(--accent-ink);box-shadow:0 12px 26px -12px rgba(11,110,71,.6)}
@@ -56,33 +57,33 @@
   header{position:sticky;top:0;z-index:50;backdrop-filter:blur(10px);
     background:rgba(246,243,236,.78);border-bottom:1px solid var(--line)}
   nav{display:flex;align-items:center;justify-content:space-between;height:70px}
-  .logo{display:flex;align-items:center;gap:.6rem;font-family:"Fraunces";font-weight:700;font-size:1.25rem}
+  .logo{display:flex;align-items:center;gap:.6rem;font-family:"Frank Ruhl Libre";font-weight:900;font-size:1.3rem;direction:ltr}
   .logo .mark{width:32px;height:32px;border-radius:10px;background:var(--grad);display:grid;place-items:center;color:#fff;font-size:1rem}
   .nav-links{display:flex;gap:2rem;align-items:center}
-  .nav-links a{color:var(--muted);font-size:.94rem;font-weight:500}
+  .nav-links a{color:var(--muted);font-size:.96rem;font-weight:500}
   .nav-links a:hover{color:var(--ink)}
   .nav-cta{display:flex;gap:.7rem;align-items:center}
   .menu-btn{display:none;background:none;border:0;color:var(--ink);font-size:1.5rem;cursor:pointer}
 
   .hero{padding:96px 0 70px;text-align:center;position:relative}
-  .hero h1{font-size:clamp(2.7rem,1.2rem+6vw,5.4rem);font-weight:600;letter-spacing:-.02em}
-  .hero p.sub{max-width:600px;margin:1.6rem auto 0;color:var(--ink2);font-size:clamp(1.08rem,1rem+.5vw,1.32rem)}
+  .hero h1{font-size:clamp(2.8rem,1.2rem+6vw,5.6rem);font-weight:700;line-height:1.1}
+  .hero p.sub{max-width:600px;margin:1.6rem auto 0;color:var(--ink2);font-size:clamp(1.1rem,1rem+.5vw,1.34rem)}
   .hero .cta-row{margin-top:2.4rem;display:flex;gap:.9rem;justify-content:center;flex-wrap:wrap}
   .pill{display:inline-flex;align-items:center;gap:.55rem;padding:.5rem 1rem;border:1px solid var(--line2);
-    border-radius:100px;font-size:.82rem;color:var(--muted);background:var(--card);box-shadow:var(--shadow-sm)}
+    border-radius:100px;font-size:.84rem;color:var(--muted);background:var(--card);box-shadow:var(--shadow-sm)}
   .pill .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(15,157,99,.16)}
-  .trust{margin-top:1.7rem;color:var(--faint);font-size:.86rem}
+  .trust{margin-top:1.7rem;color:var(--faint);font-size:.88rem}
 
   .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);
     border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin-top:60px;box-shadow:var(--shadow-sm)}
   .stat{background:var(--card);padding:28px 20px;text-align:center}
-  .stat .n{font-family:"Fraunces";font-weight:600;font-size:1.9rem;color:var(--accent-deep)}
-  .stat .l{color:var(--muted);font-size:.85rem;margin-top:.25rem}
+  .stat .n{font-family:"Frank Ruhl Libre";font-weight:700;font-size:1.9rem;color:var(--accent-deep)}
+  .stat .l{color:var(--muted);font-size:.86rem;margin-top:.25rem}
 
   section{padding:88px 0}
-  .section-head{text-align:center;max-width:680px;margin:0 auto 54px}
-  .section-head h2{font-size:clamp(2rem,1.2rem+2.6vw,3.1rem);font-weight:600;margin-top:.7rem}
-  .section-head p{color:var(--ink2);margin-top:1rem;font-size:1.08rem}
+  .section-head{text-align:center;max-width:700px;margin:0 auto 54px}
+  .section-head h2{font-size:clamp(2rem,1.2rem+2.6vw,3.2rem);font-weight:700;margin-top:.7rem}
+  .section-head p{color:var(--ink2);margin-top:1rem;font-size:1.1rem}
 
   .bento{display:grid;grid-template-columns:repeat(6,1fr);gap:16px}
   .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:28px;
@@ -90,22 +91,21 @@
   .card:hover{transform:translateY(-4px);box-shadow:0 26px 50px -30px rgba(21,36,28,.4)}
   .card .ic{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;font-size:1.35rem;
     background:var(--accent-soft);border:1px solid #cfe7d8;margin-bottom:15px}
-  .card h3{font-size:1.28rem;font-weight:600}
-  .card p{color:var(--muted);font-size:.96rem;margin:.55rem 0 0}
-  .card code{background:var(--accent-soft);color:var(--accent-deep);padding:.05rem .35rem;border-radius:6px;font-size:.85em}
+  .card h3{font-size:1.34rem;font-weight:700}
+  .card p{color:var(--muted);font-size:1rem;margin:.55rem 0 0}
   .span3{grid-column:span 3}.span2{grid-column:span 2}.span4{grid-column:span 4}
-  .feat-lg{background:linear-gradient(165deg,#ffffff,#f3f8f4)}
+  .feat-lg{background:linear-gradient(195deg,#ffffff,#f3f8f4)}
 
   .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;counter-reset:s}
   .step{position:relative;padding:30px;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow-sm)}
-  .step::before{counter-increment:s;content:counter(s);position:absolute;top:-18px;left:26px;
+  .step::before{counter-increment:s;content:counter(s);position:absolute;top:-18px;inset-inline-start:26px;
     width:38px;height:38px;border-radius:11px;background:var(--grad);color:#fff;
-    display:grid;place-items:center;font-family:"Fraunces";font-weight:700}
-  .step h3{margin-top:12px;font-size:1.25rem}
-  .step p{color:var(--muted);font-size:.96rem;margin-top:.55rem}
+    display:grid;place-items:center;font-family:"Frank Ruhl Libre";font-weight:700}
+  .step h3{margin-top:12px;font-size:1.3rem}
+  .step p{color:var(--muted);font-size:1rem;margin-top:.55rem}
 
-  .toggle{display:flex;justify-content:center;align-items:center;gap:14px;margin-bottom:38px;color:var(--muted);font-size:.95rem}
-  .switch{position:relative;width:56px;height:30px;border-radius:100px;background:var(--paper2);border:1px solid var(--line2);cursor:pointer}
+  .toggle{display:flex;justify-content:center;align-items:center;gap:14px;margin-bottom:38px;color:var(--muted);font-size:.97rem}
+  .switch{position:relative;width:56px;height:30px;border-radius:100px;background:var(--paper2);border:1px solid var(--line2);cursor:pointer;direction:ltr}
   .switch .knob{position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:var(--grad);transition:transform .3s var(--ease)}
   .switch[aria-checked="true"] .knob{transform:translateX(26px)}
   .save{color:var(--accent-deep);font-weight:700}
@@ -113,36 +113,36 @@
   .price{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);
     border-radius:var(--radius);padding:32px;box-shadow:var(--shadow-sm)}
   .price.feat{border:1.5px solid var(--accent);box-shadow:var(--shadow);position:relative;background:linear-gradient(180deg,#fbfdfb,#f3f9f5)}
-  .price .tag{position:absolute;top:-13px;right:26px;background:var(--grad);color:#fff;
-    font-size:.7rem;font-weight:700;padding:.32rem .75rem;border-radius:100px;letter-spacing:.05em}
-  .price h3{font-size:1.35rem;font-weight:600}
-  .price .desc{color:var(--muted);font-size:.92rem;margin-top:.35rem;min-height:42px}
-  .price .amt{font-family:"Fraunces";font-weight:600;font-size:2.9rem;margin:14px 0 2px;letter-spacing:-.02em}
-  .price .amt span{font-size:1rem;color:var(--muted);font-weight:500;font-family:"Hanken Grotesk"}
-  .price .per{color:var(--faint);font-size:.82rem}
+  .price .tag{position:absolute;top:-13px;inset-inline-end:26px;background:var(--grad);color:#fff;
+    font-size:.74rem;font-weight:700;padding:.32rem .8rem;border-radius:100px}
+  .price h3{font-size:1.4rem;font-weight:700}
+  .price .desc{color:var(--muted);font-size:.94rem;margin-top:.35rem;min-height:44px}
+  .price .amt{font-family:"Frank Ruhl Libre";font-weight:700;font-size:2.9rem;margin:14px 0 2px;direction:ltr;unicode-bidi:isolate;text-align:start}
+  .price .amt span{font-size:1rem;color:var(--muted);font-weight:500;font-family:"Heebo"}
+  .price .per{color:var(--faint);font-size:.84rem}
   .price ul{list-style:none;padding:0;margin:22px 0;display:grid;gap:12px}
-  .price li{display:flex;gap:.6rem;align-items:flex-start;color:var(--ink2);font-size:.93rem}
+  .price li{display:flex;gap:.6rem;align-items:flex-start;color:var(--ink2);font-size:.96rem}
   .price li .ck{color:var(--accent);flex:0 0 auto;margin-top:.15rem;font-weight:700}
   .price .btn{width:100%;justify-content:center;margin-top:auto}
 
-  .faq{max-width:780px;margin:0 auto;display:grid;gap:12px}
+  .faq{max-width:800px;margin:0 auto;display:grid;gap:12px}
   details{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:4px 22px;box-shadow:var(--shadow-sm)}
   details[open]{border-color:var(--line2)}
-  summary{list-style:none;cursor:pointer;padding:18px 0;font-weight:600;font-size:1.05rem;display:flex;justify-content:space-between;align-items:center;gap:1rem}
+  summary{list-style:none;cursor:pointer;padding:18px 0;font-weight:600;font-size:1.08rem;display:flex;justify-content:space-between;align-items:center;gap:1rem}
   summary::-webkit-details-marker{display:none}
   summary::after{content:"+";color:var(--accent-deep);font-size:1.5rem;transition:transform .25s;flex:0 0 auto}
   details[open] summary::after{transform:rotate(45deg)}
-  details p{color:var(--muted);margin:0 0 18px;font-size:.97rem}
+  details p{color:var(--muted);margin:0 0 18px;font-size:1rem}
 
-  .final{text-align:center;background:linear-gradient(150deg,#ffffff,#eef6f0);
+  .final{text-align:center;background:linear-gradient(200deg,#ffffff,#eef6f0);
     border:1px solid var(--line2);border-radius:26px;padding:72px 28px;margin:0 24px;box-shadow:var(--shadow-sm)}
-  .final h2{font-size:clamp(2rem,1.2rem+2.6vw,3.1rem);font-weight:600}
-  .final p{color:var(--ink2);max-width:520px;margin:1.1rem auto 1.9rem}
+  .final h2{font-size:clamp(2rem,1.2rem+2.6vw,3.2rem);font-weight:700}
+  .final p{color:var(--ink2);max-width:520px;margin:1.1rem auto 1.9rem;font-size:1.1rem}
 
-  footer{border-top:1px solid var(--line);margin-top:88px;padding:42px 0;color:var(--faint);font-size:.88rem}
+  footer{border-top:1px solid var(--line);margin-top:88px;padding:42px 0;color:var(--faint);font-size:.9rem}
   .foot{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
   .foot a{color:var(--muted)}.foot a:hover{color:var(--ink)}
-  .warn{margin-top:20px;color:var(--faint);font-size:.78rem;max-width:760px;line-height:1.5}
+  .warn{margin-top:20px;color:var(--faint);font-size:.8rem;max-width:780px;line-height:1.55}
 
   @media(max-width:880px){
     .nav-links{display:none}.menu-btn{display:block}
@@ -161,16 +161,16 @@
   <div class="wrap"><nav>
     <a class="logo" href="#top"><span class="mark">✦</span> WaBlast</a>
     <div class="nav-links">
-      <a href="#features">Features</a>
-      <a href="#how">How it works</a>
-      <a href="#pricing">Pricing</a>
-      <a href="#faq">FAQ</a>
+      <a href="#features">תכונות</a>
+      <a href="#how">איך זה עובד</a>
+      <a href="#pricing">מחירים</a>
+      <a href="#faq">שאלות נפוצות</a>
     </div>
     <div class="nav-cta">
-      <a class="btn btn-ghost" href="#pricing">Sign in</a>
-      <a class="btn btn-primary" href="#pricing">Start free</a>
+      <a class="btn btn-ghost" href="#pricing">התחברות</a>
+      <a class="btn btn-primary" href="#pricing">התחילו חינם</a>
     </div>
-    <button class="menu-btn" id="menuBtn" aria-label="Menu">☰</button>
+    <button class="menu-btn" id="menuBtn" aria-label="תפריט">☰</button>
   </nav></div>
 </header>
 
@@ -178,20 +178,20 @@
 
   <section class="hero">
     <div class="wrap">
-      <span class="pill"><span class="dot"></span> Paced sending · ban-risk reduction built in</span>
-      <h1>Bulk WhatsApp campaigns,<br><span class="serif-i accent">sent safely.</span></h1>
-      <p class="sub">Import your list, write one message, and let WaBlast drip it out with human-like pacing, warm-up ramps, and working-hours limits — so your number stays alive.</p>
+      <span class="pill"><span class="dot"></span> שליחה בקצב מבוקר · הפחתת סיכון חסימה מובנית</span>
+      <h1>קמפיינים בוואטסאפ,<br><span class="serif-i accent">נשלחים בבטחה.</span></h1>
+      <p class="sub">מייבאים רשימה, כותבים הודעה אחת, ו‑WaBlast שולח אותה בטפטוף עם קצב אנושי, חימום מספר ומגבלות שעות — כדי שהמספר שלכם יישאר חי.</p>
       <div class="cta-row">
-        <a class="btn btn-primary" href="#pricing">Choose a plan →</a>
-        <a class="btn btn-ghost" href="#how">See how it works</a>
+        <a class="btn btn-primary" href="#pricing">בחרו תוכנית ←</a>
+        <a class="btn btn-ghost" href="#how">ראו איך זה עובד</a>
       </div>
-      <p class="trust">No credit card to start · Opt-in only · Honors opt-out automatically</p>
+      <p class="trust">בלי כרטיס אשראי להתחלה · רק למי שהביע הסכמה · מכבד הסרה אוטומטית</p>
 
       <div class="stats">
-        <div class="stat"><div class="n">8–30s</div><div class="l">Randomized delay between sends</div></div>
-        <div class="stat"><div class="n">250/day</div><div class="l">Conservative default cap</div></div>
-        <div class="stat"><div class="n">.xlsx/.csv</div><div class="l">One-click contact import</div></div>
-        <div class="stat"><div class="n">Live</div><div class="l">Delivered / read tracking</div></div>
+        <div class="stat"><div class="n ltr">8–30 שנ'</div><div class="l">השהיה אקראית בין שליחות</div></div>
+        <div class="stat"><div class="n ltr">250/יום</div><div class="l">מכסת ברירת מחדל שמרנית</div></div>
+        <div class="stat"><div class="n ltr">xlsx/csv</div><div class="l">ייבוא אנשי קשר בקליק</div></div>
+        <div class="stat"><div class="n">חי</div><div class="l">מעקב נמסר / נקרא</div></div>
       </div>
     </div>
   </section>
@@ -199,45 +199,45 @@
   <section id="features">
     <div class="wrap">
       <div class="section-head">
-        <span class="eyebrow">Everything in one console</span>
-        <h2>Built to send a lot — carefully</h2>
-        <p>A complete campaign layer: import, template, pace, schedule, and track. The boring safety work is done for you.</p>
+        <span class="eyebrow">הכול בקונסולה אחת</span>
+        <h2>בנוי לשלוח הרבה — בזהירות</h2>
+        <p>שכבת קמפיינים מלאה: ייבוא, תבניות, קצב, תזמון ומעקב. כל עבודת הבטיחות המשעממת נעשית בשבילכם.</p>
       </div>
       <div class="bento">
         <div class="card span4 feat-lg">
           <div class="ic">🛡️</div>
-          <h3>Anti-ban pacing engine</h3>
-          <p>Randomized inter-message delays, batch breaks, per-number daily caps, warm-up ramps for new numbers, working-hours windows, and an auto-pause circuit breaker on error spikes or disconnects.</p>
+          <h3>מנוע קצב נגד חסימות</h3>
+          <p>השהיות אקראיות בין הודעות, הפסקות בין מנות, מכסה יומית לכל מספר, חימום הדרגתי למספרים חדשים, חלון שעות פעילות, ומפסק אוטומטי בעת ריבוי שגיאות או ניתוק.</p>
         </div>
         <div class="card span2">
           <div class="ic">📥</div>
-          <h3>Excel / CSV import</h3>
-          <p>Map columns, normalize phone numbers, de-dupe, and validate in one step.</p>
+          <h3>ייבוא אקסל / CSV</h3>
+          <p>מיפוי עמודות, נרמול מספרי טלפון, הסרת כפילויות ואימות — בשלב אחד.</p>
         </div>
         <div class="card span2">
           <div class="ic">✍️</div>
-          <h3>Templates + spintax</h3>
-          <p>Personalize with <code>{name}</code> and vary wording with <code>{Hi|Hey|Shalom}</code> on every send.</p>
+          <h3>תבניות + ספינטקס</h3>
+          <p>התאמה אישית עם <code>{name}</code> ושינוי ניסוח עם <code>{שלום|היי|אהלן}</code> בכל שליחה.</p>
         </div>
         <div class="card span2">
           <div class="ic">⏰</div>
-          <h3>Scheduling</h3>
-          <p>Start now or queue a campaign for a future time. Caps and hours still apply.</p>
+          <h3>תזמון</h3>
+          <p>התחילו עכשיו או תזמנו קמפיין לזמן עתידי. המכסות והשעות עדיין חלות.</p>
         </div>
         <div class="card span2">
           <div class="ic">📊</div>
-          <h3>Live delivery tracking</h3>
-          <p>Watch sent → delivered → read update in real time, per recipient.</p>
+          <h3>מעקב מסירה חי</h3>
+          <p>צפו ב‑נשלח ← נמסר ← נקרא מתעדכן בזמן אמת, לכל נמען.</p>
         </div>
         <div class="card span3">
           <div class="ic">🚫</div>
-          <h3>Automatic opt-out</h3>
-          <p>Reply <strong>STOP</strong> (or הסר) and the contact is removed and skipped everywhere — forever.</p>
+          <h3>הסרה אוטומטית</h3>
+          <p>מספיק שמישהו ישיב <strong class="ltr">STOP</strong> (או הסר) — איש הקשר מוסר ומדולג בכל קמפיין עתידי, לתמיד.</p>
         </div>
         <div class="card span3">
           <div class="ic">🖼️</div>
-          <h3>Media campaigns</h3>
-          <p>Send an image or document with a templated caption alongside your text.</p>
+          <h3>קמפייני מדיה</h3>
+          <p>שלחו תמונה או מסמך עם כיתוב מותאם לצד הטקסט.</p>
         </div>
       </div>
     </div>
@@ -246,13 +246,13 @@
   <section id="how" style="background:linear-gradient(180deg,transparent,var(--paper2),transparent)">
     <div class="wrap">
       <div class="section-head">
-        <span class="eyebrow">Three steps</span>
-        <h2>From spreadsheet to sent</h2>
+        <span class="eyebrow">שלושה צעדים</span>
+        <h2>מגיליון אקסל לשליחה</h2>
       </div>
       <div class="steps">
-        <div class="step"><h3>Connect your number</h3><p>Scan a QR once. Your WhatsApp session stays connected on our always-on engine.</p></div>
-        <div class="step"><h3>Import &amp; write</h3><p>Upload your list, map the columns, and craft one template with variables and spintax.</p></div>
-        <div class="step"><h3>Launch &amp; watch</h3><p>Hit start. WaBlast paces every message and shows you live progress, delivery, and reads.</p></div>
+        <div class="step"><h3>חברו את המספר</h3><p>סורקים QR פעם אחת. החיבור לוואטסאפ נשאר פעיל על המנוע הזמין שלנו.</p></div>
+        <div class="step"><h3>ייבאו וכתבו</h3><p>העלו רשימה, מפו עמודות, ונסחו תבנית אחת עם משתנים וספינטקס.</p></div>
+        <div class="step"><h3>שגרו וצפו</h3><p>לחצו התחל. WaBlast מקצב כל הודעה ומראה התקדמות, מסירה וקריאות בזמן אמת.</p></div>
       </div>
     </div>
   </section>
@@ -260,60 +260,60 @@
   <section id="pricing">
     <div class="wrap">
       <div class="section-head">
-        <span class="eyebrow">Pricing</span>
-        <h2>Simple plans. Cancel anytime.</h2>
-        <p>Every plan includes the full anti-ban engine. Pay monthly or save with annual.</p>
+        <span class="eyebrow">מחירים</span>
+        <h2>תוכניות פשוטות. ביטול בכל עת.</h2>
+        <p>כל תוכנית כוללת את מנוע ההגנה המלא. תשלום חודשי או חיסכון שנתי.</p>
       </div>
 
       <div class="toggle">
-        <span id="lblM" style="color:var(--ink)">Monthly</span>
-        <div class="switch" id="billSwitch" role="switch" aria-checked="false" tabindex="0" aria-label="Toggle annual billing"><span class="knob"></span></div>
-        <span id="lblY">Annual <span class="save">save 20%</span></span>
+        <span id="lblM" style="color:var(--ink)">חודשי</span>
+        <div class="switch" id="billSwitch" role="switch" aria-checked="false" tabindex="0" aria-label="מעבר לחיוב שנתי"><span class="knob"></span></div>
+        <span id="lblY">שנתי <span class="save">חיסכון 20%</span></span>
       </div>
 
       <div class="prices">
         <div class="price">
-          <h3>Starter</h3>
-          <p class="desc">For a single number and small lists.</p>
-          <div class="amt" data-m="19" data-y="15">$19<span>/mo</span></div>
-          <div class="per" data-mper="billed monthly" data-yper="billed annually">billed monthly</div>
+          <h3>בסיס</h3>
+          <p class="desc">למספר יחיד ורשימות קטנות.</p>
+          <div class="amt" data-m="69" data-y="55">₪69<span>/לחודש</span></div>
+          <div class="per" data-mper="חיוב חודשי" data-yper="חיוב שנתי">חיוב חודשי</div>
           <ul>
-            <li><span class="ck">✓</span> 1 WhatsApp number</li>
-            <li><span class="ck">✓</span> Up to 250 sends/day</li>
-            <li><span class="ck">✓</span> Import, templates, spintax</li>
-            <li><span class="ck">✓</span> Opt-out handling</li>
+            <li><span class="ck">✓</span> מספר וואטסאפ אחד</li>
+            <li><span class="ck">✓</span> עד 250 שליחות ביום</li>
+            <li><span class="ck">✓</span> ייבוא, תבניות, ספינטקס</li>
+            <li><span class="ck">✓</span> טיפול בהסרות</li>
           </ul>
-          <a class="btn btn-ghost buy" data-plan="starter" href="#">Get Starter</a>
+          <a class="btn btn-ghost buy" data-plan="starter" href="#">בחרו בסיס</a>
         </div>
 
         <div class="price feat">
-          <span class="tag">MOST POPULAR</span>
-          <h3>Pro</h3>
-          <p class="desc">For regular campaigns and bigger lists.</p>
-          <div class="amt" data-m="49" data-y="39">$49<span>/mo</span></div>
-          <div class="per" data-mper="billed monthly" data-yper="billed annually">billed monthly</div>
+          <span class="tag">הכי פופולרי</span>
+          <h3>מקצועי</h3>
+          <p class="desc">לקמפיינים שוטפים ורשימות גדולות.</p>
+          <div class="amt" data-m="179" data-y="143">₪179<span>/לחודש</span></div>
+          <div class="per" data-mper="חיוב חודשי" data-yper="חיוב שנתי">חיוב חודשי</div>
           <ul>
-            <li><span class="ck">✓</span> Everything in Starter</li>
-            <li><span class="ck">✓</span> Higher daily cap + warm-up</li>
-            <li><span class="ck">✓</span> Scheduling + media campaigns</li>
-            <li><span class="ck">✓</span> Live delivery &amp; read tracking</li>
-            <li><span class="ck">✓</span> CSV results export</li>
+            <li><span class="ck">✓</span> כל מה שבבסיס</li>
+            <li><span class="ck">✓</span> מכסה יומית גבוהה + חימום</li>
+            <li><span class="ck">✓</span> תזמון + קמפייני מדיה</li>
+            <li><span class="ck">✓</span> מעקב מסירה וקריאה חי</li>
+            <li><span class="ck">✓</span> ייצוא תוצאות CSV</li>
           </ul>
-          <a class="btn btn-primary buy" data-plan="pro" href="#">Get Pro</a>
+          <a class="btn btn-primary buy" data-plan="pro" href="#">בחרו מקצועי</a>
         </div>
 
         <div class="price">
-          <h3>Business</h3>
-          <p class="desc">For high volume and priority support.</p>
-          <div class="amt" data-m="99" data-y="79">$99<span>/mo</span></div>
-          <div class="per" data-mper="billed monthly" data-yper="billed annually">billed monthly</div>
+          <h3>עסקי</h3>
+          <p class="desc">לנפח גבוה ותמיכה בעדיפות.</p>
+          <div class="amt" data-m="359" data-y="287">₪359<span>/לחודש</span></div>
+          <div class="per" data-mper="חיוב חודשי" data-yper="חיוב שנתי">חיוב חודשי</div>
           <ul>
-            <li><span class="ck">✓</span> Everything in Pro</li>
-            <li><span class="ck">✓</span> Maximum daily cap</li>
-            <li><span class="ck">✓</span> Priority support</li>
-            <li><span class="ck">✓</span> Onboarding help</li>
+            <li><span class="ck">✓</span> כל מה שבמקצועי</li>
+            <li><span class="ck">✓</span> מכסה יומית מקסימלית</li>
+            <li><span class="ck">✓</span> תמיכה בעדיפות</li>
+            <li><span class="ck">✓</span> ליווי הקמה</li>
           </ul>
-          <a class="btn btn-ghost buy" data-plan="business" href="#">Get Business</a>
+          <a class="btn btn-ghost buy" data-plan="business" href="#">בחרו עסקי</a>
         </div>
       </div>
     </div>
@@ -321,22 +321,22 @@
 
   <section id="faq">
     <div class="wrap">
-      <div class="section-head"><span class="eyebrow">FAQ</span><h2>Good questions</h2></div>
+      <div class="section-head"><span class="eyebrow">שאלות נפוצות</span><h2>שאלות טובות</h2></div>
       <div class="faq">
-        <details><summary>Can my number still get banned?</summary><p>Yes — driving WhatsApp Web is against WhatsApp's Terms, and any number can be banned. WaBlast <em>reduces</em> risk with conservative pacing, warm-up, and caps, but it is not a guarantee. Use a number you can afford to lose, warm it up, and message only people who opted in.</p></details>
-        <details><summary>How does the pacing work?</summary><p>Messages go out one at a time with a randomized 8–30s gap, a longer pause every batch, a per-day cap (with a warm-up ramp for new numbers), and only inside your working hours. Sending auto-pauses if the session drops or errors spike.</p></details>
-        <details><summary>Do you handle opt-outs?</summary><p>Automatically. When someone replies a stop keyword (STOP, UNSUBSCRIBE, הסר…), that contact is flagged and skipped in every future campaign.</p></details>
-        <details><summary>What do I need to start?</summary><p>A WhatsApp number and your contact list as Excel or CSV. You scan a QR once to connect, then import and send.</p></details>
-        <details><summary>Can I cancel anytime?</summary><p>Yes. Plans are month-to-month (or annual if you choose). Cancel whenever — no lock-in.</p></details>
+        <details><summary>המספר שלי עדיין יכול להיחסם?</summary><p>כן — הפעלת וואטסאפ ווב נוגדת את תנאי השימוש של וואטסאפ, וכל מספר עלול להיחסם. WaBlast <em>מפחית</em> סיכון עם קצב שמרני, חימום ומכסות, אבל זו אינה ערובה. השתמשו במספר שאתם יכולים להרשות לעצמכם לאבד, חממו אותו, ושלחו רק למי שהביע הסכמה.</p></details>
+        <details><summary>איך הקצב עובד?</summary><p>ההודעות יוצאות אחת‑אחת עם מרווח אקראי של 8–30 שניות, הפסקה ארוכה בכל מנה, מכסה יומית (עם חימום הדרגתי למספרים חדשים), ורק בשעות הפעילות שלכם. השליחה נעצרת אוטומטית אם החיבור נופל או השגיאות מתרבות.</p></details>
+        <details><summary>אתם מטפלים בהסרות?</summary><p>אוטומטית. כשמישהו משיב מילת הסרה (STOP, UNSUBSCRIBE, הסר…), איש הקשר מסומן ומדולג בכל קמפיין עתידי.</p></details>
+        <details><summary>מה צריך כדי להתחיל?</summary><p>מספר וואטסאפ ורשימת אנשי הקשר כאקסל או CSV. סורקים QR פעם אחת כדי להתחבר, ואז מייבאים ושולחים.</p></details>
+        <details><summary>אפשר לבטל בכל עת?</summary><p>כן. התוכניות חודש‑בחודש (או שנתי לבחירתכם). בטלו מתי שתרצו — בלי התחייבות.</p></details>
       </div>
     </div>
   </section>
 
   <section style="padding-top:0">
     <div class="final">
-      <h2>Start your first campaign today</h2>
-      <p>Connect a number, import a list, and send safely in minutes.</p>
-      <a class="btn btn-primary" href="#pricing">Choose a plan →</a>
+      <h2>התחילו את הקמפיין הראשון היום</h2>
+      <p>חברו מספר, ייבאו רשימה, ושלחו בבטחה תוך דקות.</p>
+      <a class="btn btn-primary" href="#pricing">בחרו תוכנית ←</a>
     </div>
   </section>
 
@@ -347,14 +347,14 @@
     <div class="foot">
       <a class="logo" href="#top"><span class="mark">✦</span> WaBlast</a>
       <div style="display:flex;gap:22px">
-        <a href="#features">Features</a>
-        <a href="#pricing">Pricing</a>
-        <a href="#faq">FAQ</a>
-        <a href="mailto:ido6662@gmail.com">Contact</a>
+        <a href="#features">תכונות</a>
+        <a href="#pricing">מחירים</a>
+        <a href="#faq">שאלות נפוצות</a>
+        <a href="mailto:ido6662@gmail.com">צור קשר</a>
       </div>
       <span>© <span id="yr"></span> WaBlast</span>
     </div>
-    <p class="warn">WaBlast sends via WhatsApp Web automation, which is against WhatsApp's Terms of Service; accounts may be banned. Message only recipients who have opted in, and honor every opt-out. Not affiliated with WhatsApp or Meta.</p>
+    <p class="warn">WaBlast שולח באמצעות אוטומציה של וואטסאפ ווב, הנוגדת את תנאי השימוש של וואטסאפ; חשבונות עלולים להיחסם. שלחו רק לנמענים שהביעו הסכמה, וכבדו כל בקשת הסרה. איננו מסונפים לוואטסאפ או למטא.</p>
   </div>
 </footer>
 
@@ -373,7 +373,7 @@
     lblY.style.color = annual ? 'var(--ink)' : 'var(--muted)';
     document.querySelectorAll('.amt').forEach(el=>{
       const v = annual ? el.dataset.y : el.dataset.m;
-      el.innerHTML = '$' + v + '<span>/mo</span>';
+      el.innerHTML = '₪' + v + '<span>/לחודש</span>';
     });
     document.querySelectorAll('.per').forEach(el=>{
       el.textContent = annual ? el.dataset.yper : el.dataset.mper;
@@ -382,14 +382,15 @@
   sw.addEventListener('click', ()=> setBilling(sw.getAttribute('aria-checked')!=='true'));
   sw.addEventListener('keydown', e=>{ if(e.key===' '||e.key==='Enter'){e.preventDefault(); sw.click();} });
 
-  // ---- Checkout ----
-  // Paste your Stripe Payment Link (or Gumroad/Lemon Squeezy URL) per plan to go live.
-  // Until set, the button captures the lead via email so you never miss a buyer.
+  // ---- תשלום ----
+  // הדביקו כאן Stripe Payment Link (או קישור Gumroad/Lemon Squeezy) לכל תוכנית כדי לעבור לתשלום אמיתי.
+  // עד שתגדירו — הכפתור אוסף את הליד באימייל, כדי שלא תפספסו לקוח.
   const CHECKOUT = {
     starter:  { monthly:"", annual:"" },
     pro:      { monthly:"", annual:"" },
     business: { monthly:"", annual:"" }
   };
+  const PLAN_HE = { starter:"בסיס", pro:"מקצועי", business:"עסקי" };
   document.querySelectorAll('.buy').forEach(btn=>{
     btn.addEventListener('click', e=>{
       e.preventDefault();
@@ -397,8 +398,9 @@
       const annual = sw.getAttribute('aria-checked')==='true';
       const url = CHECKOUT[plan] && CHECKOUT[plan][annual?'annual':'monthly'];
       if(url){ window.location.href = url; return; }
-      const cycle = annual ? 'annual' : 'monthly';
-      window.location.href = `mailto:ido6662@gmail.com?subject=${encodeURIComponent('Subscribe: '+plan+' ('+cycle+')')}&body=${encodeURIComponent('I want to subscribe to the '+plan+' plan ('+cycle+'). My WhatsApp number: ')}`;
+      const cycle = annual ? 'שנתי' : 'חודשי';
+      const he = PLAN_HE[plan] || plan;
+      window.location.href = `mailto:ido6662@gmail.com?subject=${encodeURIComponent('מנוי: '+he+' ('+cycle+')')}&body=${encodeURIComponent('אני רוצה להירשם לתוכנית '+he+' ('+cycle+'). מספר הוואטסאפ שלי: ')}`;
     });
   });
 </script>
